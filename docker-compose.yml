@@ -1,0 +1,45 @@
+services:
+  httpbackend:
+    build: 
+      context: ./
+      dockerfile: docker/Dockerfile.be
+    ports:
+      - "3002:3002"
+    environment:
+      - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/postgres
+    depends_on:
+      - postgres
+  frontend:
+    build: 
+      context: ./
+      dockerfile: docker/Dockerfile.fe
+      args:
+        - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/postgres
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/postgres
+    depends_on:
+      - postgres
+  ws:
+    build: 
+      context: ./
+      dockerfile: docker/Dockerfile.ws
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://postgres:mypassword@postgres:5432/postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=mypassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgDb:/var/lib/postgresql/data
+
+volumes:
+  pgDb:

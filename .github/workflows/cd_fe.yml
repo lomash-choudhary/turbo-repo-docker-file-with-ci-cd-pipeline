@@ -1,0 +1,26 @@
+name: deploy FE using CI/Cd
+on:
+    push:
+        branches: [ main ]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout the code
+              uses: actions/checkout@v4
+            
+            - name: Login to Docker hub
+              uses: docker/login-action@v3
+              with: 
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+            
+            - name: Build and push to docker hub
+              uses: docker/build-push-action@v6
+              with: 
+                context: .
+                file: ./docker/Dockerfile.fe
+                build-args:
+                    DATABASE_URL=${{ secrets.DATABASE_URL }}
+                push: true
+                tags: lomashchoudhary/week-27-2-fe:${{ github.sha }}

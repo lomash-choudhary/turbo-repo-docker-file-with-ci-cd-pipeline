@@ -26,3 +26,15 @@ jobs:
           file: ./docker/Dockerfile.be
           push: true
           tags: lomashchoudhary/week-27-2-ws:${{github.sha}}
+
+      ##deploy it to a VM from the docker hub
+      - name: Deploy it to a VM and run using docker
+        run : |
+          echo "${{ secrets.PRIVATE_KEY }}" &> ~/ssh_key
+          mkdir home/runner/.ssh
+          ls home/runner/.ssh
+          touch home/runner/.ssh/know_hosts
+          echo $${{ secrets.KNOW_HOSTS }} &> home/runner/.ssh/know_hosts
+          chmod 700 home/runner/ssh_key
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@64.227.184.69 -t "docker stop http-backend && docker run docker run -e DATABASE_URL=${{ secrets.NEON_DB }} -d -p 3002:3002 --name http-backend lomashchoudhary/week-27-2-be:${{ github.sha }}"
+          

@@ -22,4 +22,4 @@ jobs:
           build-args:
             DATABASE_URL=${{ github.DATABASE_URL }}
           push: true
-          tags: lomashchoudhary/week-27-2-fe:${{github.sha}}
+          tags: lomashchoudhary/week-27-2-fe:${{ github.sha }}

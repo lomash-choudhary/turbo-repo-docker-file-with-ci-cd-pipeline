@@ -25,4 +25,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile.ws
           push: true
-          tags: lomashchoudhary/week-27-2-ws:$${{github.sha}}
+          tags: lomashchoudhary/week-27-2-ws:${{github.sha}}

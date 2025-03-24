@@ -31,6 +31,8 @@ jobs:
       - name: Deploy it to a VM and run using docker
         run : |
           echo "${{ secrets.PRIVATE_KEY }}" &> ~/ssh_key
+          mkdir -p ~/.ssh
+          touch ~/.ssh/know_hosts
           echo "${{ secrets.KNOW_HOSTS }}" &> ~/.ssh/know_hosts
           chmod 700 ~/ssh_key
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@64.227.184.69 << EOF

@@ -25,13 +25,13 @@ jobs:
           context: .
           file: ./docker/Dockerfile.be
           push: true
-          tags: lomashchoudhary/week-27-2-ws:${{github.sha}}
+          tags: lomashchoudhary/week-27-2-be:${{github.sha}}
 
       ##deploy it to a VM from the docker hub
       - name: Deploy it to a VM and run using docker
         run : |
           echo "${{ secrets.PRIVATE_KEY }}" &> ~/ssh_key
-          mkdir home/runner/.ssh
+          mkdir -p home/runner/.ssh
           ls home/runner/.ssh
           touch home/runner/.ssh/know_hosts
           echo $${{ secrets.KNOW_HOSTS }} &> home/runner/.ssh/know_hosts

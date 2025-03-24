@@ -40,6 +40,6 @@ jobs:
           ls
           cd .ssh
           ls
-          chmod 700 home/runner/ssh_key
+          chmod 700 ssh_key
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@64.227.184.69 -t "docker stop http-backend && docker run docker run -e DATABASE_URL=${{ secrets.NEON_DB }} -d -p 3002:3002 --name http-backend lomashchoudhary/week-27-2-be:${{ github.sha }}"
           

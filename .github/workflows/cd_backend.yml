@@ -39,6 +39,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@64.227.184.69 << EOF
             docker stop http-backend || true
             docker rm http-backend || true 
-            docker run -e DATABASE_URL="${{ secrets.NEON_DB }}" -d -p 3002:3002 --name http-backend lomashchoudhary/week-27-2-be:${{ github.sha }}"
+            docker run -e DATABASE_URL="${{ secrets.NEON_DB }}" -d -p 3002:3002 --name http-backend lomashchoudhary/week-27-2-be:${{ github.sha }}
           EOF
           
